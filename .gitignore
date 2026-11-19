@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.*
+.expo/
+dist/
+android/
+ios/
+config.json
+config.json.tmp
+Shared/
+credentials.json
+*.jks
+*.keystore
+*.log

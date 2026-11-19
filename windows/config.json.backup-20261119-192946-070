@@ -1,0 +1,28 @@
+{
+  "roots": {
+  "C Drive": "C:\\",
+  "D Drive": "D:\\"
+},
+  "apps": {
+    "notepad": {
+      "label": "Notepad",
+      "exe": "C:\\Windows\\System32\\notepad.exe",
+      "args": []
+    },
+    "calculator": {
+      "label": "Calculator",
+      "exe": "C:\\Windows\\System32\\calc.exe",
+      "args": []
+    }
+  },
+  "modes": [
+    {
+      "id": "work",
+      "name": "Work",
+      "apps": [
+        "notepad",
+        "calculator"
+      ]
+    }
+  ]
+}
