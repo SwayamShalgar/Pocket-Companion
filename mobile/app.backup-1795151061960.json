@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "Pocket Companion",
+    "slug": "pocket-companion",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "android": {
+      "package": "com.pocketcompanion.personal",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#0b1020"
+      }
+    },
+    "plugins": [
+      "expo-secure-store",
+      "./withCleartext.cjs",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/icon.png",
+          "imageWidth": 240,
+          "resizeMode": "contain",
+          "backgroundColor": "#0b1020",
+          "dark": {
+            "image": "./assets/icon.png",
+            "backgroundColor": "#0b1020"
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e23091c2-c77e-4c62-9cec-612af15d838a"
+      }
+    },
+    "icon": "./assets/icon.png"
+  }
+}

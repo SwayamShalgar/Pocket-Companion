@@ -477,6 +477,8 @@ app.post('/chat', async (req, res) => {
 
 require('./upgrades.cjs')(app, config, filePath);
 require('./remote.cjs')(app);
+require('./system-controls.cjs')(app);
+require('./screen.cjs')(app);
 
 app.use((err, req, res, next) => {
   if (res.headersSent) return next(err);

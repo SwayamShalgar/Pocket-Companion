@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "Pocket Companion",
+    "slug": "pocket-companion",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "android": {
+      "package": "com.pocketcompanion.personal"
+    },
+    "plugins": [
+      "expo-secure-store",
+      "./withCleartext.cjs",
+      "expo-splash-screen"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e23091c2-c77e-4c62-9cec-612af15d838a"
+      }
+    }
+  }
+}
