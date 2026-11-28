@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'"
+  >
+
+  <title>Pocket Companion</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 26px;
+      background: #0b1020;
+      color: #f4f7ff;
+      font: 15px system-ui;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    h2 {
+      font-size: 18px;
+    }
+
+    section {
+      background: #131d31;
+      padding: 20px;
+      border-radius: 18px;
+      margin: 16px 0;
+    }
+
+    p {
+      line-height: 1.6;
+      color: #b8c6db;
+    }
+
+    button {
+      background: #87e6cd;
+      color: #092e2a;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin: 4px;
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: wait;
+    }
+
+    input[type=text],
+    input[type=password] {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 12px;
+      background: #1e2a43;
+      color: white;
+      border: 1px solid #42546d;
+      border-radius: 8px;
+      margin: 8px 0;
+    }
+
+    label {
+      display: block;
+      margin: 16px 0;
+    }
+
+    code,
+    li {
+      overflow-wrap: anywhere;
+    }
+
+    li {
+      margin: 10px 0;
+    }
+
+    #error {
+      color: #ffadad;
+    }
+
+    small {
+      color: #b8c6db;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Pocket Companion</h1>
+
+  <p id="status" role="status">Starting…</p>
+  <p id="error" role="alert"></p>
+
+  <section>
+    <h2>Connect your phone</h2>
+
+    <p>
+      Install Tailscale on your phone and laptop,
+      then connect both to your own Tailscale network.
+      Enter this address and private token in the
+      Android app’s connection settings.
+    </p>
+
+    <label>
+      Laptop address
+
+      <input
+        id="address"
+        type="text"
+        readonly
+        placeholder="Waiting for Tailscale"
+      >
+    </label>
+
+    <label>
+      Private token
+
+      <input
+        id="token"
+        type="password"
+        readonly
+        value="Hidden — use Reveal or Copy"
+      >
+    </label>
+
+    <button id="reveal">Reveal token</button>
+    <button id="copy">Copy token</button>
+
+    <p>
+      Anyone with this token and network access can use
+      enabled features. Share it only with your own phone.
+    </p>
+  </section>
+
+  <section>
+    <h2>Shared folders</h2>
+
+    <p>
+      Only folders you select are available to your phone.
+    </p>
+
+    <ul id="folders"></ul>
+
+    <button id="add">Choose folder</button>
+  </section>
+
+  <section>
+    <h2>Preferences</h2>
+
+    <label>
+      <input id="controls" type="checkbox">
+
+      Allow app launching, file opening, media,
+      screen sharing, remote input, and
+      power/settings controls
+    </label>
+
+    <label>
+      <input id="startup" type="checkbox">
+
+      Start with Windows (after installation)
+    </label>
+
+    <button id="toggle">Stop companion</button>
+
+    <p>
+      Closing this window keeps the companion in the
+      system tray. Use the tray’s Quit option to
+      exit completely.
+    </p>
+
+    <small>
+      Settings folder:
+      <code id="data"></code>
+    </small>
+  </section>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

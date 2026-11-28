@@ -2,12 +2,67 @@
   "name": "laptop-companion",
   "version": "1.0.0",
   "private": true,
+  "main": "desktop/main.cjs",
+  "productName": "Pocket Companion",
+  "description": "Personal laptop companion for Android",
   "scripts": {
-    "start": "node server.cjs"
+    "start": "node server.cjs",
+    "desktop": "electron .",
+    "dist:win": "electron-builder --win nsis --x64"
   },
   "dependencies": {
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "systeminformation": "^5.27.11"
+  },
+  "devDependencies": {
+    "electron": "^45.5.0",
+    "electron-builder": "^26.18.0"
+  },
+  "build": {
+    "appId": "com.pocketcompanion.desktop",
+    "productName": "Pocket Companion",
+    "asar": false,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "package.json",
+      "desktop/**/*",
+      "server.cjs",
+      "upgrades.cjs",
+      "remote.cjs",
+      "remote-worker.ps1",
+      "system-controls.cjs",
+      "bluetooth.ps1",
+      "screen.cjs",
+      "screen-worker.ps1",
+      "running-apps.cjs",
+      "running-apps.ps1",
+      "node_modules/**/*",
+      "!**/.env",
+      "!**/.env.*",
+      "!**/*.log"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "PocketCompanion-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Pocket Companion",
+      "deleteAppDataOnUninstall": false
+    }
   }
 }

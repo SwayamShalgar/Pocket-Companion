@@ -6,7 +6,10 @@ const { spawn, execFile } = require('node:child_process');
 const express = require('express');
 const si = require('systeminformation');
 
-process.chdir(__dirname);
+const dataDir = process.env.COMPANION_DATA_DIR || __dirname;
+
+fs.mkdirSync(dataDir, { recursive: true });
+process.chdir(dataDir);
 
 if (!fs.existsSync('.env')) {
   fs.writeFileSync(
@@ -24,7 +27,7 @@ OPENAI_MODEL=gpt-4.1-mini
 require('dotenv').config({ quiet: true });
 
 if (!fs.existsSync('config.json')) {
-  const folder = path.join(__dirname, 'Shared');
+  const folder = path.join(dataDir, 'Shared');
   fs.mkdirSync(folder, { recursive: true });
 
   fs.writeFileSync('config.json', JSON.stringify({
@@ -84,6 +87,36 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json({ limit: '32kb' }));
+app.use((req, res, next) => {
+  if (
+    process.env.COMPANION_DESKTOP === '1' &&
+    process.env.COMPANION_CONTROLS !== '1'
+  ) {
+    const route = req.path;
+
+    const needsControls =
+      [
+        '/open',
+        '/launch',
+        '/mode',
+        '/control',
+        '/remote',
+        '/chat'
+      ].includes(route) ||
+      route.startsWith('/screen/') ||
+      route.startsWith('/system') ||
+      route.startsWith('/running-apps');
+
+    if (needsControls) {
+      return res.status(403).json({
+        error:
+          'Enable laptop controls in the Windows companion settings first.'
+      });
+    }
+  }
+
+  next();
+});
 
 const own = (obj, key) =>
   typeof key === 'string' && Object.hasOwn(obj, key);
